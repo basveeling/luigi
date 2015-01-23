@@ -20,7 +20,13 @@ cache:
 
 install:
   - pip install tox
+  - pip install coveralls
 
-script: tox -e $TOX_ENV
+script:
+  - coverage run `tox -e $TOX_ENV`
 
-after_failure: cat /home/travis/build/spotify/luigi/.tox/cdh/log/cdh-1.log
+after_success:
+  - coveralls
+
+after_failure:
+  - cat /home/travis/build/spotify/luigi/.tox/cdh/log/cdh-1.log
